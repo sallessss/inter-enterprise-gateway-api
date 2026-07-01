@@ -6,8 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import com.interenterprise.gateway.dto.common.QueryParams;
 
@@ -40,7 +43,18 @@ public final class BankingDtos {
 	public record LoteResponse(String idLote, String status, List<PagamentoResponse> pagamentos) {
 	}
 
-	public record PixPagamentoRequest(@NotBlank String chave, @NotNull BigDecimal valor, String descricao) {
+	public record PixPagamentoRequest(
+		@NotNull BigDecimal valor,
+		LocalDate dataPagamento,
+		@Size(max = 140) String descricao,
+		@NotNull @Valid PixDestinatario destinatario
+	) {
+	}
+
+	public record PixDestinatario(
+		@NotBlank String chave,
+		@NotBlank @Pattern(regexp = "CHAVE") String tipo
+	) {
 	}
 
 	public record PixPagamentoResponse(String codigoSolicitacao, String status, String mensagem) {

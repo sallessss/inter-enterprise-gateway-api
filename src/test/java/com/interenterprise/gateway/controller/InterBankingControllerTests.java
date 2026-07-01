@@ -145,7 +145,7 @@ class InterBankingControllerTests {
 
 		mockMvc.perform(post("/api/inter/banking/pix")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"chave\":\"chave-pix\",\"valor\":10.00,\"descricao\":\"teste\"}"))
+				.content("{\"valor\":10.00,\"dataPagamento\":\"2026-07-01\",\"descricao\":\"teste\",\"destinatario\":{\"chave\":\"chave-pix\",\"tipo\":\"CHAVE\"}}"))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.codigoSolicitacao").value("pix-1"));
 	}
