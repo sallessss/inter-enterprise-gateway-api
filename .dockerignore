@@ -1,0 +1,15 @@
+target/
+.git/
+.idea/
+.vscode/
+.settings/
+.classpath
+.project
+*.iml
+.env
+.env.*
+.certs/*
+!.certs/.gitkeep
+docs/
+HELP.md
+README.md

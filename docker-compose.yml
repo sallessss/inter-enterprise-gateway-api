@@ -1,0 +1,14 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: inter-enterprise-gateway:latest
+    container_name: inter-enterprise-gateway-api
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./.certs:/app/.certs:ro
+    restart: unless-stopped

@@ -1,0 +1,24 @@
+FROM eclipse-temurin:21-jdk AS build
+
+WORKDIR /workspace
+
+COPY mvnw pom.xml ./
+COPY .mvn .mvn
+RUN chmod +x mvnw && ./mvnw -q -DskipTests dependency:go-offline
+
+COPY src src
+RUN ./mvnw -q -DskipTests package
+
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+RUN addgroup --system app && adduser --system --ingroup app app
+
+COPY --from=build /workspace/target/*.jar /app/app.jar
+
+USER app
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
