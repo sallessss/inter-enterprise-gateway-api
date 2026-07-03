@@ -78,6 +78,7 @@ public final class CobrancaDtos {
 	public record Pagador(
 		@NotBlank String cpfCnpj,
 		@NotBlank String nome,
+		String tipoPessoa,
 		String email,
 		String ddd,
 		String telefone,
